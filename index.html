@@ -1,52 +1,171 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tech News Dashboard — Browse the latest technology news from Hacker News across JavaScript, AI, and Startups.">
-    <title>Tech News Dashboard</title>
-
-    <!-- Google Font for modern typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+    <title>News Explore</title>
 </head>
+
+<body>
+    <h1>Tech News</h1>
+
+    <p>
+        <button class="topic" data-topic="AI">AI</button>
+        <button class="topic" data-topic="java">java</button>
+        <button class="topic" data-topic="blockchain">blockchain</button>
+        <button class="topic" data-topic="cybersecurity">cybersecurity</button>
+        <button class="topic" data-topic="startup">startup</button>
+        <button class="topic" data-topic="gadgets">gadgets</button>
+    </p>
+    <hr>
+    <div id="news"></div>
+
+    <script>
+        const newsContainer = document.getElementById('news');
+
+        async function fetchNews(topic) {
+            newsContainer.innerHTML = 'Loading...';
+            const url = https://hn.algolia.com/api/v1/search?query=${topic};
+            const res = await fetch(url);
+            const data = await res.json();
+            showNews(data.hits);
+        }
+
+        catch (err) {
+            newsContainer.innerHTML = 'Error loading news';
+            console.error(err);
+        }
+    }
+
+        // DISPLAY NEWS
+        function showNews(articles) {
+            newsContainer.innerHTML = '';
+            articles.forEach(articles => {
+                const title = articles.title || articles.story_title || 'No Title';
+                const url = articles.url || articles.story_url || '#';
+                if (!url) return; // Skip if no URL
+                const div = document.createElement('div');
+                div.innerHTML = `<h3>${title}</h3> <a href="${url}" target="_blank">read</a> <hr>`;
+                newsContainer.appendChild(div);
+            });
+        }
+
+        // TOPIC BUTTONS
+
+        const topics = document.querySelectorAll('.topic');
+        topics.forEach(btn => {
+            btn.addEventListener('click', () => {
+                fetchNews(btn.dataset.topic);
+            });
+        });
+
+        // DEFULT NEWS
+
+        fetchNews('technology');
+    </script>
+
+</body>
+
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Explore</title>
+</head>
+
 <body>
 
-    <!-- ===== Header ===== -->
-    <header class="header">
-        <div class="header__inner">
-            <h1 class="header__title">
-                <span class="header__icon">📡</span> Tech News Dashboard
-            </h1>
-            <p class="header__subtitle">Live stories from Hacker News — JavaScript · AI · Startups</p>
-        </div>
-    </header>
+    <h1>Tech News</h1>
 
-    <!-- ===== Loading Spinner (visible while API requests are in-flight) ===== -->
-    <div id="loader" class="loader">
-        <div class="loader__spinner"></div>
-        <p class="loader__text">Fetching the latest news&hellip;</p>
-    </div>
+    <p>
+        <button class="topic" data-topic="AI">AI</button>
+        <button class="topic" data-topic="java">Java</button>
+        <button class="topic" data-topic="blockchain">Blockchain</button>
+        <button class="topic" data-topic="cybersecurity">Cybersecurity</button>
+        <button class="topic" data-topic="startup">Startup</button>
+        <button class="topic" data-topic="gadgets">Gadgets</button>
+    </p>
 
-    <!-- ===== Error Banner (hidden by default) ===== -->
-    <div id="error-banner" class="error-banner hidden">
-        <p>⚠️ Failed to load news. Please try again later.</p>
-        <button id="retry-btn" class="btn btn--retry">Retry</button>
-    </div>
+    <hr>
 
-    <!-- ===== News Container (hidden until data loads) ===== -->
-    <main id="news-container" class="news-container hidden">
-        <!-- Topic sections are injected here by script.js -->
-    </main>
+    <div id="news"></div>
 
-    <!-- ===== Footer ===== -->
-    <footer class="footer">
-        <p>Powered by the <a href="https://hn.algolia.com/api" target="_blank" rel="noopener noreferrer">Hacker News Algolia API</a></p>
-    </footer>
+    <script>
 
-    <script src="script.js"></script>
+        const newsContainer = document.getElementById('news');
+
+        // FETCH NEWS
+        async function fetchNews(topic) {
+
+            newsContainer.innerHTML = "Loading...";
+
+            try {
+
+                const url = `https://hn.algolia.com/api/v1/search?query=${topic}`;
+
+                const res = await fetch(url);
+
+                const data = await res.json();
+
+                showNews(data.hits);
+
+            } catch (err) {
+
+                newsContainer.innerHTML = "Error loading news";
+                console.error(err);
+
+            }
+        }
+
+        // DISPLAY NEWS
+        function showNews(articles) {
+
+            newsContainer.innerHTML = "";
+
+            articles.forEach(article => {
+
+                const title = article.title || article.story_title || "No Title";
+
+                const url = article.url || article.story_url;
+
+                if (!url) return;
+
+                const div = document.createElement("div");
+
+                div.innerHTML = `
+                    <h3>${title}</h3>
+                    <a href="${url}" target="_blank">Read</a>
+                    <hr>
+                `;
+
+                newsContainer.appendChild(div);
+
+            });
+        }
+
+        // TOPIC BUTTONS
+        const topics = document.querySelectorAll(".topic");
+
+        topics.forEach(btn => {
+
+            btn.addEventListener("click", () => {
+
+                fetchNews(btn.dataset.topic);
+
+            });
+
+        });
+
+        // DEFAULT NEWS
+        fetchNews("technology");
+
+    </script>
+
 </body>
+
 </html>
