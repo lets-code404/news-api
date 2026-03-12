@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tech News Dashboard — Browse the latest technology news from Hacker News across JavaScript, AI, and Startups.">
+    <title>Tech News Dashboard</title>
+
+    <!-- Google Font for modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== Header ===== -->
+    <header class="header">
+        <div class="header__inner">
+            <h1 class="header__title">
+                <span class="header__icon">📡</span> Tech News Dashboard
+            </h1>
+            <p class="header__subtitle">Live stories from Hacker News — JavaScript · AI · Startups</p>
+        </div>
+    </header>
+
+    <!-- ===== Loading Spinner (visible while API requests are in-flight) ===== -->
+    <div id="loader" class="loader">
+        <div class="loader__spinner"></div>
+        <p class="loader__text">Fetching the latest news&hellip;</p>
+    </div>
+
+    <!-- ===== Error Banner (hidden by default) ===== -->
+    <div id="error-banner" class="error-banner hidden">
+        <p>⚠️ Failed to load news. Please try again later.</p>
+        <button id="retry-btn" class="btn btn--retry">Retry</button>
+    </div>
+
+    <!-- ===== News Container (hidden until data loads) ===== -->
+    <main id="news-container" class="news-container hidden">
+        <!-- Topic sections are injected here by script.js -->
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer">
+        <p>Powered by the <a href="https://hn.algolia.com/api" target="_blank" rel="noopener noreferrer">Hacker News Algolia API</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
